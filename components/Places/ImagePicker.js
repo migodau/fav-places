@@ -4,10 +4,10 @@ import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-
 import { Colors } from '../../theme/colors';
 import { OutlinedButton } from '../UI/OutlinedButton';
 
-export function ImagePicker() {
+export function ImagePicker({ onPickImage }) {
 
   const [cameraPermissionInfo, requestPermission] = useCameraPermissions();
-  const [pickedImage, setPickedImage] = useState({});
+  const [pickedImage, setPickedImage] = useState();
 
   async function checkPermissions() {
     const { status } = cameraPermissionInfo;
@@ -39,14 +39,15 @@ export function ImagePicker() {
     const result = await launchCameraAsync(cameraOptions);
     console.log('handleTakeImage');
     if (!result.canceled) {
-      console.log(result.assets[0], result.assets[0].uri);
-      setPickedImage(result.assets[0]);
+      const imageUri = result.assets[0]?.uri || null;
+      setPickedImage(imageUri);
+      onPickImage(imageUri);
     }
   }
 
-  let imagePreview = !pickedImage?.uri ?
+  let imagePreview = !pickedImage ?
     <Text>No image taken yet</Text> :
-    <Image source={{uri: pickedImage.uri }} style={styles.image} />;
+    <Image source={{uri: pickedImage }} style={styles.image} />;
 
 
   return (

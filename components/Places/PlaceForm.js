@@ -1,23 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Colors } from '../../theme/colors';
+import { Button } from '../UI/Button';
 import { ImagePicker } from './ImagePicker';
 import { LocationPicker } from './LocationPicker';
 
 export function PlaceForm() {
   const [title, setTitle] = useState('');
+  const [image, setImage] = useState();
+  const [location, setLocation] = useState();
 
   function handleChangeTitle(text) {
     setTitle(text);
   }
+
+  const handlePickImage = useCallback((image) => {
+    console.log('handlePickImage', image);
+    setImage(image);
+  }, []);
+
+  const handlePickLocation = useCallback((location) => {
+    console.log('handlePickImage', location);
+    setLocation(location);
+  }, []);
+
+  function handleSavePlace() {
+    console.log('handleSavePlace', {
+      title,
+      image,
+      location
+    });
+  }
+
   return (
     <ScrollView style={styles.form}>
       <View>
         <Text style={styles.label}>Title</Text>
         <TextInput style={styles.input} onChangeText={handleChangeTitle} value={title}/>
       </View>
-      <ImagePicker />
-      <LocationPicker />
+      <ImagePicker onPickImage={handlePickImage} />
+      <LocationPicker onPickLocation={handlePickLocation} />
+      <View style={styles.actions}>
+        <Button onPress={handleSavePlace}>Add Place</Button>
+      </View>
     </ScrollView>
   );
 }
@@ -39,5 +64,8 @@ export const styles = StyleSheet.create({
     borderBottomColor: Colors.primary700,
     borderBottomWidth: 2,
     backgroundColor: Colors.primary100,
+  },
+  actions: {
+    paddingVertical: 24,
   }
 });
