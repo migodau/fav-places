@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { IconButton } from './components/UI/IconButton';
 import { AddPlace } from './screens/AddPlace';
 import { AllPlaces } from './screens/AllPlaces';
+import { Map } from './screens/Map';
 import { Colors } from './theme/colors';
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ export default function App() {
               <IconButton icon="add" size={24} color={tintColor} onPress={() => navigation.navigate('AddPlace')} />
           })}/>
           <Stack.Screen name="AddPlace" component={AddPlace} options={{title: 'Add New Place',}}/>
+          <Stack.Screen name="Map" component={Map} options={{title: 'Map',}}/>
         </Stack.Navigator>
       </NavigationContainer>
     </>
