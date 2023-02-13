@@ -7,6 +7,6 @@ export class Place {
     this.imageURI = imageURI;
     this.address = location.address;
     this.location = location.coord; // { lat: 0.123, lng: 127.121}
-    this.id = uuidv4()
+    // this.id = uuidv4()
   }
 }
