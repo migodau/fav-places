@@ -34,7 +34,7 @@ export function LocationPicker({ onPickLocation }) {
 
     const fetchLocation = async () => {
       const address = await getAddress(pickedLocation);
-      onPickLocation({ ...pickedLocation, address });
+      onPickLocation({ coord: pickedLocation, address });
     };
 
     fetchLocation();

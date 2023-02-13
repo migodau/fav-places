@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Place } from '../../models/place';
 import { Colors } from '../../theme/colors';
 import { Button } from '../UI/Button';
 import { ImagePicker } from './ImagePicker';
 import { LocationPicker } from './LocationPicker';
 
-export function PlaceForm() {
+export function PlaceForm({ onSubmit }) {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState();
   const [location, setLocation] = useState();
@@ -30,6 +31,8 @@ export function PlaceForm() {
       image,
       location
     });
+    const place = new Place(title, image, location);
+    onSubmit(place);
   }
 
   return (
